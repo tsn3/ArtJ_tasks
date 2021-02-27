@@ -60,6 +60,28 @@ function sortOrderAsc($array)
 
 echo 'SortOrder ASK: ' . implode(',', sortOrderAsc($array)) .PHP_EOL;
 
+$matrix = array(array(1,2,3),array(4,5,6),array(7,8,9));
+function transposeMatrix($matrix)
+{
+    $m=count($matrix);
+    $n=count($matrix[2]);
+    $arrayN = [];
+
+    for ($row = 0; $row < $m; $row++) {
+        for ($col = 0; $col < $n; $col++)
+            echo " " . $matrix[$col][$row];
+        echo "<br/>";
+
+    }
+
+
+}
+echo "the transpose for the first matrix is:". '<pre>';
+print_r(transposeMatrix($matrix));
+echo '</pre>';
+
+
+
 $array1 = [[2, 2],[4, 8],];
 $array2 = [[2, 2, 3],[4, 8, 1, 9],];
 
@@ -83,29 +105,6 @@ function matrixMult($array1, $array2)
 
 echo '<pre>';
 print_r(matrixMult($array1, $array2));
-echo '</pre>';
-
-
-
-$matrix = array(array(1,2,3),array(4,5,6),array(7,8,9));
-
-function transposeMatrix($matrix)
-{
-    $m=count($matrix);
-    $n=count($matrix[2]);
-    $arrayN = [];
-
-    for ($row = 0; $row < $m; $row++) {
-        for ($col = 0; $col < $n; $col++)
-            echo " " . $matrix[$col][$row];
-        echo "<br/>";
-
-    }
-
-
-}
-echo "the transpose for the first matrix is:". '<pre>';
-print_r(transposeMatrix($matrix));
 echo '</pre>';
 
 $arr_numbers = array(
