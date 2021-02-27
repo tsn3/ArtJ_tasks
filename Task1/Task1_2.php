@@ -59,3 +59,52 @@ function sortOrderAsc($array)
 }
 
 echo 'SortOrder ASK: ' . implode(',', sortOrderAsc($array)) .PHP_EOL;
+
+$array1 = [[2, 2],[4, 8],];
+$array2 = [[2, 2, 3],[4, 8, 1, 9],];
+
+function matrixMult($array1, $array2)
+{
+    $row = count($array1);
+    $column = count($array2[0]);
+    $p = count($array2);
+    if (count($array1[0]) != $p) {throw new Exception('Incompatible matrixes');}
+    $arrayNew = [];
+    for ($i = 0; $i < $row; $i++) {
+        for ($j = 0; $j < $column; $j++) {
+            $arrayNew[$i][$j] = 0;
+            for ($k = 0; $k < $p; $k++) {
+                $arrayNew[$i][$j] += $array1[$i][$k] * $array2[$k][$j];
+            }
+        }
+    }
+    return ($arrayNew);
+}
+
+echo '<pre>';
+print_r(matrixMult($array1, $array2));
+echo '</pre>';
+
+
+
+$matrix = array(array(1,2,3),array(4,5,6),array(7,8,9));
+
+
+function transposeMatrix($matrix)
+{
+    $m=count($matrix);
+    $n=count($matrix[2]);
+    $arrayN = [];
+
+    for ($row = 0; $row < $m; $row++) {
+        for ($col = 0; $col < $n; $col++)
+            echo " " . $matrix[$col][$row];
+        echo "<br/>";
+
+    }
+
+
+}
+echo "the transpose for the first matrix is:". '<pre>';
+print_r(transposeMatrix($matrix));
+echo '</pre>';
