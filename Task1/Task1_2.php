@@ -89,7 +89,6 @@ echo '</pre>';
 
 $matrix = array(array(1,2,3),array(4,5,6),array(7,8,9));
 
-
 function transposeMatrix($matrix)
 {
     $m=count($matrix);
@@ -107,4 +106,46 @@ function transposeMatrix($matrix)
 }
 echo "the transpose for the first matrix is:". '<pre>';
 print_r(transposeMatrix($matrix));
+echo '</pre>';
+
+$arr_numbers = array(
+    '1',
+    '2',
+    array(
+        '2.1',
+        '2.2',
+        array(
+            '2.2.1',
+            '2.2.2',
+            array(
+                '2.2.2.1'
+            )
+        ),
+        '2.3',
+        array(
+            '2.3.1',
+            array(
+                '2.3.1.1',
+                '2.3.1.2'
+            )
+        )
+    )
+);
+function array_values_recursive($arr_numbers)
+{
+    $lst = array();
+    foreach( array_keys($arr_numbers) as $key ){
+        $value = $arr_numbers[$key];
+        if (is_scalar($value)) {
+            $lst[] = $value;
+        } elseif (is_array($value)) {
+            $lst = array_merge( $lst,
+                array_values_recursive($value)
+            );
+        }
+    }
+    return $lst;
+}
+echo '<pre>';
+print_r(array_values_recursive($arr_numbers));
 echo '</pre>';
