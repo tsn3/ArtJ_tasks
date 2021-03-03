@@ -76,7 +76,7 @@ function transposeMatrix($matrix)
 
 
 }
-echo "the transpose for the first matrix is:". '<pre>';
+echo "the transpose for the matrix is:". '<pre>';
 print_r(transposeMatrix($matrix));
 echo '</pre>';
 
@@ -105,6 +105,38 @@ function matrixMult($array1, $array2)
 
 echo '<pre>';
 print_r(matrixMult($array1, $array2));
+echo '</pre>';
+
+$arr_numbers_del = [
+    [-3.3, -3.3, -99.99, 105],
+    [0.1, -99,  44, -22],
+    [0, -12344, 3, 1111],
+    [6, 77, 77, -99]
+];
+
+function deleteStringСolumn($arr_numbers_del){
+
+    $countСol = count($arr_numbers_del);
+    $countString = count($arr_numbers_del);
+
+    for ($string=0; $string < $countString; $string++) {
+        $positive = 0;
+        for ($col=0; $col < $countСol; $col++) {
+            if($arr_numbers_del [$string][$col] == 0){
+                unset($arr_numbers_del[$string]);
+            }
+            $positive+= $arr_numbers_del [$string][$col];
+        }
+        if($positive > 0){
+            unset($arr_numbers_del[$string]);
+        }
+
+    }
+    return $arr_numbers_del;
+}
+
+echo "After deleting rows and columns in which the sum is positive and there is at least `0`:". '<pre>';
+print_r(deleteStringСolumn($arr_numbers_del )).PHP_EOL;
 echo '</pre>';
 
 $arr_numbers = array(
@@ -148,3 +180,8 @@ function array_values_recursive($arr_numbers)
 echo '<pre>';
 print_r(array_values_recursive($arr_numbers));
 echo '</pre>';
+
+
+
+
+
