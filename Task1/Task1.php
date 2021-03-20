@@ -9,7 +9,7 @@ function decimalToBinary($decimalNumber)
     }
     return $binary;
 }
-$binary=128;
+$binary=5;
 echo decimalToBinary ($binary);
 echo "\n";
 
@@ -37,21 +37,20 @@ function fibonacci($position, $a = 0, $b = 1)
     }
     return $row;
 }
-foreach (fibonacci(5) as $value) {
+foreach (fibonacci(0) as $value) {
     echo $value . PHP_EOL;
 }
 
 echo 'Fibonacci numbers recursion'. PHP_EOL;
 function FibonacciRecursion($number){
-
-    if ($number == 0)
+    if ($number == 0){
         return 0;
-    else if ($number == 1)
+    } else if ($number == 1){
         return 1;
-
-    else
-        return (FibonacciRecursion($number-1) +
-            FibonacciRecursion($number-2));
+    } else {
+        return (FibonacciRecursion($number - 1) +
+            FibonacciRecursion($number - 2));
+    }
 }
 
 $number = 10;
@@ -64,8 +63,9 @@ function numberPower($value, $power){
     $result = 1;
     $currentVal = $value;
     $currentPow = $power;
-    if($currentPow < 0)
+    if($currentPow < 0) {
         $currentPow = -$currentPow;
+    }
     while($currentPow > 0){
         if($currentPow % 2 == 1){
             $result *= $currentVal;
@@ -73,10 +73,11 @@ function numberPower($value, $power){
         $currentVal *= $currentVal;
         $currentPow /= 2;
     }
-    if($power >= 0)
+    if($power >= 0){
         return $result;
-    else if($power < 0)
+    } else if($power < 0) {
         return 1 / $result;
+    }
 }
 $value=3;
 $power=3;
@@ -85,34 +86,35 @@ echo numberPower($value, $power). PHP_EOL;
 echo 'Number N to power M recursion'. PHP_EOL;
 function powerRecursion($value, $power)
 {
-    if ($power == 1)
+    if ($power == 1) {
         return $value;
-
-    if ($power == 0)
+    }
+    if ($power == 0) {
         return 1;
-
-    if ($power < 0)
+    }
+    if ($power < 0) {
         return powerRecursion(1 / $value, -$power);
-    else
+    } else{
         return $value * powerRecursion($value, $power - 1);
+    }
 }
 
 $value=3;
 $power=3;
 echo powerRecursion($value, $power). PHP_EOL;
 
-function ipFilter($ip, $low_ip, $high_ip) {
-    $low_ip = ip2long($low_ip);
-    $high_ip = ip2long($high_ip);
+function ipFilter($ip, $lowIp, $highIp) {
+    $lowIp = ip2long($lowIp);
+    $highIp = ip2long($highIp);
     $ip = ip2long($ip);
-    if ($ip <= $high_ip && $low_ip <= $ip) {
+    if ($ip <= $highIp && $lowIp <= $ip) {
         return "IP in range";
     }
     else{
         return "IP out of range";
     }
 }
-$low_ip='1.127.255.100';
-$high_ip='128.0.0.0';
+$lowIp='1.127.255.100';
+$highIp='128.0.0.0';
 $ip='2.1.0.0';
-echo ipFilter($ip, $low_ip, $high_ip). PHP_EOL;
+echo ipFilter($ip, $lowIp, $highIp). PHP_EOL;
