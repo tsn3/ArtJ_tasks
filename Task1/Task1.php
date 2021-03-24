@@ -42,40 +42,41 @@ foreach (fibonacci(0) as $value) {
 }
 
 echo 'Fibonacci numbers recursion'. PHP_EOL;
-function FibonacciRecursion($number){
+function fibonacciRecursion($number)
+{
     if ($number == 0){
         return 0;
     } else if ($number == 1){
         return 1;
     } else {
-        return (FibonacciRecursion($number - 1) +
-            FibonacciRecursion($number - 2));
+        return (fibonacciRecursion($number - 1) +
+            fibonacciRecursion($number - 2));
     }
 }
-
 $number = 10;
-for ($counter = 0; $counter < $number; $counter++){
+for ($counter = 0; $counter < $number; $counter++) {
     echo FibonacciRecursion($counter),' '. PHP_EOL;
 }
 
 echo 'Number N to power M'. PHP_EOL;
-function numberPower($value, $power){
+function numberPower($value, $power)
+{
     $result = 1;
     $currentVal = $value;
     $currentPow = $power;
-    if($currentPow < 0) {
+    if ($currentPow < 0) {
         $currentPow = -$currentPow;
     }
-    while($currentPow > 0){
-        if($currentPow % 2 == 1){
+    while ($currentPow > 0) {
+        if ($currentPow % 2 == 1) {
             $result *= $currentVal;
         }
         $currentVal *= $currentVal;
         $currentPow /= 2;
     }
-    if($power >= 0){
+    if ($power >= 0) {
         return $result;
-    } else if($power < 0) {
+    } else if ($power < 0) {
         return 1 / $result;
     }
 }
@@ -98,19 +99,18 @@ function powerRecursion($value, $power)
         return $value * powerRecursion($value, $power - 1);
     }
 }
-
 $value=3;
 $power=3;
 echo powerRecursion($value, $power). PHP_EOL;
 
-function ipFilter($ip, $lowIp, $highIp) {
+function ipFilter($ip, $lowIp, $highIp)
+{
     $lowIp = ip2long($lowIp);
     $highIp = ip2long($highIp);
     $ip = ip2long($ip);
     if ($ip <= $highIp && $lowIp <= $ip) {
         return "IP in range";
-    }
-    else{
+    } else {
         return "IP out of range";
     }
 }
