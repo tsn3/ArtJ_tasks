@@ -10,28 +10,28 @@
     ];
     private static $instance;
 
-    public static function createLogFile()
+    public function createLogFile()
     {
-        $time = date(static::$options['dateFormat']);
-        static::$log_file = __DIR__ . "/logs/log-{$time}.txt";
+        $time = date(self::$options['dateFormat']);
+        self::$log_file = __DIR__ . "/logs/log.txt";
 
         if (!file_exists(__DIR__ . '/logs')) {
-            mkdir(__DIR__ . '/logs', 0777, true);
+            mkdir(__DIR__ . '/logs', 0755, true);
         }
 
     }
 
-    public static function setOptions($options = [])
+    public function setOptions($options = [])
     {
-        static::$options = array_merge(static::$options, $options);
+        self::$options = array_merge(self::$options, $options);
     }
 
 
-    public static function info($message, array $context = [])
+    public function info($message, array $context = [])
     {
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
-        static::writeLog([
+        self::writeLog([
             'message' => $message,
             'bt' => $bt,
             'severity' => 'INFO',
@@ -39,11 +39,11 @@
         ]);
     }
 
-    public static function notice($message, array $context = [])
+    public function notice($message, array $context = [])
     {
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
-        static::writeLog([
+        self::writeLog([
             'message' => $message,
             'bt' => $bt,
             'severity' => 'NOTICE',
@@ -51,11 +51,11 @@
         ]);
     }
 
-    public static function debug($message, array $context = [])
+    public function debug($message, array $context = [])
     {
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
-        static::writeLog([
+        self::writeLog([
             'message' => $message,
             'bt' => $bt,
             'severity' => 'DEBUG',
@@ -63,11 +63,11 @@
         ]);
     }
 
-    public static function warning($message, array $context = [])
+    public function warning($message, array $context = [])
     {
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
-        static::writeLog([
+        self::writeLog([
             'message' => $message,
             'bt' => $bt,
             'severity' => 'WARNING',
@@ -75,11 +75,11 @@
         ]);
     }
 
-    public static function error($message, array $context = [])
+    public function error($message, array $context = [])
     {
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
-        static::writeLog([
+        self::writeLog([
             'message' => $message,
             'bt' => $bt,
             'severity' => 'ERROR',
@@ -87,11 +87,11 @@
         ]);
     }
 
-    public static function fatal($message, array $context = [])
+    public function fatal($message, array $context = [])
     {
         $bt = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
-        static::writeLog([
+        self::writeLog([
             'message' => $message,
             'bt' => $bt,
             'severity' => 'FATAL',
@@ -99,20 +99,20 @@
         ]);
     }
 
-    public static function writeLog($args = [])
+    public function writeLog($args = [])
     {
-        static::createLogFile();
+        self::createLogFile();
 
-        if (!is_resource(static::$file)) {
-            static::openLog();
+        if (!is_resource(self::$file)) {
+            self::openLog();
         }
 
-        $time = date(static::$options['logFormat']);
+        $time = date(self::$options['logFormat']);
         $context = json_encode($args['context']);
         $caller = array_shift($args['bt']);
         $btLine = $caller['line'];
         $btPath = $caller['file'];
-        $path = static::absToRelPath($btPath);
+        $path = self::absToRelPath($btPath);
         $timeLog = is_null($time) ? "[N/A] " : "[{$time}] ";
         $pathLog = is_null($path) ? "[N/A] " : "[{$path}] ";
         $lineLog = is_null($btLine) ? "[N/A] " : "[{$btLine}] ";
@@ -120,31 +120,31 @@
         $messageLog = is_null($args['message']) ? "N/A" : "{$args['message']}";
         $contextLog = empty($args['context']) ? "" : "{$context}";
 
-        fwrite(static::$file, "{$timeLog}{$pathLog}{$lineLog}: {$severityLog} - {$messageLog} {$contextLog}" . PHP_EOL);
-        static::closeFile();
+        fwrite(self::$file, "{$timeLog}{$pathLog}{$lineLog}: {$severityLog} - {$messageLog} {$contextLog}" . PHP_EOL);
+        self::closeFile();
     }
 
-    private static function openLog()
+    private function openLog()
     {
-        $openFile = static::$log_file;
-        static::$file = fopen($openFile, 'a') or exit("Can't open $openFile!");
+        $openFile = self::$log_file;
+        self::$file = fopen($openFile, 'a') or exit("Can't open $openFile!");
     }
 
-    public static function closeFile()
+    public function closeFile()
     {
-        if (static::$file) {
-            fclose(static::$file);
+        if (self::$file) {
+            fclose(self::$file);
         }
     }
 
-    public static function absToRelPath($pathToConvert)
+    public function absToRelPath($pathToConvert)
     {
         $pathAbs = str_replace(['/', '\\'], '/', $pathToConvert);
         $documentRoot = str_replace(['/', '\\'], '/', $_SERVER['DOCUMENT_ROOT']);
         return $_SERVER['SERVER_NAME'] . str_replace($documentRoot, '', $pathAbs);
     }
 
-    protected function __clone()
+    public  function __clone()
     {
     }
 
@@ -161,7 +161,7 @@
         return self::$instance;
     }
 
-    private function __destruct()
+    public function __destruct()
     {
     }
 }
