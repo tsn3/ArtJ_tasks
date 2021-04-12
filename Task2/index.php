@@ -1,12 +1,11 @@
 <?php
-
-include_once  'Logger.php';
 include_once 'ClassLoader.php';
 
-spl_autoload_register('project_autoload');
-use Shape\Rectangle;
-use Shape\Triangle;
-use Shape\Circle;
+use tsn3\Shape\Shape;
+use tsn3\Shape\ShapeCircle;
+use tsn3\Shape\Rectangle;
+use tsn3\Shape\Triangle;
+use tsn3\Shape\Circle;
 
 echo "Периметр и площадь заданных фигур:" . PHP_EOL;
 try {
@@ -27,10 +26,9 @@ try {
 }
 
 try {
-    $rect = new Rectangle(3, 6);
+    $rect = new Circle(3, 6);
     echo "Периметр прямоугольника = " . $rect->perimetr() . PHP_EOL;
     echo "Площадь прямоугольника = " . $rect->square() . PHP_EOL;
 } catch (Exception $e) {
     Logger::info( $e->getMessage());
 }
-

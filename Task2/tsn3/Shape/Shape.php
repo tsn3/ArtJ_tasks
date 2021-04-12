@@ -1,5 +1,5 @@
 <?php
-namespace Shape;
+namespace tsn3\Shape;
 
 interface Shape
 {

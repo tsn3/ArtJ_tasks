@@ -1,5 +1,5 @@
 <?php
-namespace Shape;
+namespace tsn3\Shape;
 
 abstract class ShapeCircle implements  Shape
 {
